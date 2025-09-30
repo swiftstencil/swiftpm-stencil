@@ -1,9 +1,3 @@
-//
-// Stencil
-// Copyright © 2022 Stencil
-// MIT Licence
-//
-
 import Spectre
 import Stencil
 import XCTest

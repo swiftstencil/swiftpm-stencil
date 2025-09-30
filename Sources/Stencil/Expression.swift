@@ -1,9 +1,3 @@
-//
-// Stencil
-// Copyright © 2022 Stencil
-// MIT Licence
-//
-
 public protocol Expression: CustomStringConvertible, Resolvable {
   func evaluate(context: Context) throws -> Bool
 }

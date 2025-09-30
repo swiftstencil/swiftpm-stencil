@@ -1,9 +1,3 @@
-//
-// Stencil
-// Copyright © 2022 Stencil
-// MIT Licence
-//
-
 /// Used to lazily set context data. Useful for example if you have some data that requires heavy calculations, and may
 /// not be used in every render possiblity.
 public final class LazyValueWrapper {

@@ -1,9 +1,3 @@
-//
-// Stencil
-// Copyright © 2022 Stencil
-// MIT Licence
-//
-
 /// Creates a checker that will stop parsing if it encounters a list of tags.
 /// Useful for example for scanning until a given "end"-node.
 public func until(_ tags: [String]) -> ((TokenParser, Token) -> Bool) {
@@ -98,7 +92,7 @@ public class TokenParser {
     tokens.first?.whitespace?.leading
   }
 
-  /// Insert a token 
+  /// Insert a token
   public func prependToken(_ token: Token) {
     tokens.insert(token, at: 0)
     if parsedTokens.last == token {

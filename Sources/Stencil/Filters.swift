@@ -1,9 +1,3 @@
-//
-// Stencil
-// Copyright © 2022 Stencil
-// MIT Licence
-//
-
 func capitalise(_ value: Any?) -> Any? {
   if let array = value as? [Any?] {
     return array.map { stringify($0).capitalized }

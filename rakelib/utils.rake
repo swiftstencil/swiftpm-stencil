@@ -55,7 +55,7 @@ class Utils
   def self.spm_own_version(dep)
     dependencies = JSON.load(File.new('Package.resolved'))['object']['pins']
     dependencies.find { |d| d['package'] == dep }['state']['version']
-  end  
+  end
 
   def self.spm_resolved_version(dep)
     dependencies = JSON.load(File.new('Package.resolved'))['object']['pins']

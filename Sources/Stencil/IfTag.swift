@@ -1,9 +1,3 @@
-//
-// Stencil
-// Copyright © 2022 Stencil
-// MIT Licence
-//
-
 enum Operator {
   case infix(String, Int, InfixOperator.Type)
   case prefix(String, Int, PrefixOperator.Type)
@@ -17,7 +11,7 @@ enum Operator {
     }
   }
 
-  static let all: [Operator] = [
+  static let all: [Self] = [
     .infix("in", 5, InExpression.self),
     .infix("or", 6, OrExpression.self),
     .infix("and", 7, AndExpression.self),
@@ -118,6 +112,7 @@ final class IfExpressionParser {
   private init(components: ArraySlice<String>, environment: Environment, token: Token) throws {
     var parsedComponents = Set<Int>()
     var bracketsBalance = 0
+    // swiftlint:disable:next closure_body_length
     self.tokens = try zip(components.indices, components).compactMap { index, component in
       guard !parsedComponents.contains(index) else { return nil }
 

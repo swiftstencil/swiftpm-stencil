@@ -1,12 +1,10 @@
-//
-// Stencil
-// Copyright © 2022 Stencil
-// MIT Licence
-//
-
 import Foundation
 
+// swiftlint:disable large_tuple
 typealias Line = (content: String, number: UInt, range: Range<String.Index>)
+/// Location in some content (text)
+public typealias ContentLocation = (content: String, lineNumber: UInt, lineOffset: Int)
+// swiftlint:enable large_tuple
 
 struct Lexer {
   let templateName: String?
@@ -257,6 +255,3 @@ extension String {
     return String(self[first..<last])
   }
 }
-
-/// Location in some content (text)
-public typealias ContentLocation = (content: String, lineNumber: UInt, lineOffset: Int)

@@ -1,9 +1,3 @@
-//
-// Stencil
-// Copyright © 2022 Stencil
-// MIT Licence
-//
-
 /// Container for registered tags and filters
 open class Extension {
   typealias TagParser = (TokenParser, Token) throws -> NodeType

@@ -2,17 +2,16 @@
   "name": "Stencil",
   "version": "0.15.1",
   "summary": "Stencil is a simple and powerful template language for Swift.",
-  "homepage": "https://stencil.fuller.li",
   "license": {
     "type": "BSD",
     "file": "LICENSE"
   },
   "authors": {
-    "Kyle Fuller": "kyle@fuller.li"
+    "Thomas Bernstein": "developer@astzweig.kg"
   },
-  "social_media_url": "https://twitter.com/kylefuller",
+  "social_media_url": "https://twitter.com/trbernstein",
   "source": {
-    "git": "https://github.com/stencilproject/Stencil.git",
+    "git": "https://github.com/swiftstencil/swiftpm-stencil.git",
     "tag": "0.15.1"
   },
   "source_files": [
@@ -23,14 +22,13 @@
     "osx": "10.9",
     "tvos": "9.0"
   },
-  "cocoapods_version": ">= 1.7.0",
   "swift_versions": [
     "5.0"
   ],
   "requires_arc": true,
   "dependencies": {
     "PathKit": [
-      "~> 1.0.0"
+      "~> 1.5.0"
     ]
   }
 }

@@ -1,9 +1,3 @@
-//
-// Stencil
-// Copyright © 2022 Stencil
-// MIT Licence
-//
-
 /// Container for environment data, such as registered extensions
 public struct Environment {
   /// The class for loading new templates

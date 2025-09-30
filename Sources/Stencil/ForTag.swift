@@ -1,9 +1,3 @@
-//
-// Stencil
-// Copyright © 2022 Stencil
-// MIT Licence
-//
-
 import Foundation
 
 class ForNode: NodeType {
@@ -231,7 +225,7 @@ struct LoopTerminationNode: NodeType {
     self.token = token
   }
 
-  static func parse(_ parser: TokenParser, token: Token) throws -> LoopTerminationNode {
+  static func parse(_ parser: TokenParser, token: Token) throws -> Self {
     let components = token.components
 
     guard components.count <= 2 else {
@@ -241,7 +235,7 @@ struct LoopTerminationNode: NodeType {
       throw TemplateSyntaxError("'\(token.contents)' can be used only inside loop body")
     }
 
-    return LoopTerminationNode(name: components[0], label: components.count == 2 ? components[1] : nil, token: token)
+    return Self(name: components[0], label: components.count == 2 ? components[1] : nil, token: token)
   }
 
   func render(_ context: Context) throws -> String {

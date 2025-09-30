@@ -1,9 +1,3 @@
-//
-// Stencil
-// Copyright © 2022 Stencil
-// MIT Licence
-//
-
 import PathKit
 import Spectre
 @testable import Stencil
@@ -17,7 +11,7 @@ final class EnvironmentIncludeTemplateTests: XCTestCase {
   override func setUp() {
     super.setUp()
 
-    let path = Path(#file as String) + ".." + "fixtures"
+    let path = Path(#file as String)! / ".." / "fixtures"
     let loader = FileSystemLoader(paths: [path])
     environment = Environment(loader: loader)
     template = ""

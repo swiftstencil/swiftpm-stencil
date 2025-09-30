@@ -1,4 +1,4 @@
-swiftlint_version: 0.48.0
+swiftlint_version: 0.61.0
 
 opt_in_rules:
  - accessibility_label_for_image
@@ -103,14 +103,6 @@ closure_body_length:
 
 conditional_returns_on_newline:
   if_only: true
-
-file_header:
-  required_pattern: |
-                    \/\/
-                    \/\/ Stencil
-                    \/\/ Copyright © 2022 Stencil
-                    \/\/ MIT Licence
-                    \/\/
 
 indentation_width:
   indentation_width: 2

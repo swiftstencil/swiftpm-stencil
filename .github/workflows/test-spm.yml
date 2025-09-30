@@ -2,7 +2,8 @@ name: Test SPM
 
 on:
   push:
-    branches: master
+    branches:
+      - main
   pull_request:
 
 jobs:
@@ -11,10 +12,10 @@ jobs:
     runs-on: ubuntu-latest
     container: swiftgen/swift:5.6
     steps:
-      - 
+      -
         name: Checkout
         uses: actions/checkout@v3
-      - 
+      -
         # Note: we can't use `ruby/setup-ruby` on custom docker images, so we
         # have to do our own caching
         name: Cache gems
@@ -24,7 +25,7 @@ jobs:
           key: ${{ runner.os }}-gems-${{ hashFiles('Gemfile.lock') }}
           restore-keys: |
             ${{ runner.os }}-gems-
-      - 
+      -
         name: Cache SPM
         uses: actions/cache@v3
         with:
@@ -45,15 +46,15 @@ jobs:
     name: Test SPM macOS
     runs-on: macos-latest
     steps:
-      - 
+      -
         name: Checkout
         uses: actions/checkout@v3
-      - 
+      -
         name: Setup Ruby
         uses: ruby/setup-ruby@v1
         with:
           bundler-cache: true
-      - 
+      -
         name: Cache SPM
         uses: actions/cache@v3
         with:

@@ -1,9 +1,3 @@
-//
-// Stencil
-// Copyright © 2022 Stencil
-// MIT Licence
-//
-
 import Foundation
 import PathKit
 
@@ -47,13 +41,17 @@ open class Template: ExpressibleByStringLiteral {
   /// Create a template with a file found at the given URL
   @available(*, deprecated, message: "Use Environment/FileSystemLoader instead")
   public convenience init(URL: Foundation.URL) throws {
-    try self.init(path: Path(URL.path))
+    guard let path = Path(url: URL) else {
+      throw TemplateDoesNotExist(templateNames: [URL.lastPathComponent])
+    }
+    try self.init(path: path)
   }
 
   /// Create a template with a file found at the given path
   @available(*, deprecated, message: "Use Environment/FileSystemLoader instead")
   public convenience init(path: Path, environment: Environment? = nil, name: String? = nil) throws {
-    self.init(templateString: try path.read(), environment: environment, name: name)
+    let value = try String(contentsOf: path)
+    self.init(templateString: value, environment: environment, name: name)
   }
 
   // MARK: ExpressibleByStringLiteral
@@ -81,8 +79,8 @@ open class Template: ExpressibleByStringLiteral {
     return try renderNodes(nodes, context)
   }
 
-  // swiftlint:disable discouraged_optional_collection
   /// Render the given template
+  // swiftlint:disable:next discouraged_optional_collection
   open func render(_ dictionary: [String: Any]? = nil) throws -> String {
     try render(Context(dictionary: dictionary ?? [:], environment: environment))
   }

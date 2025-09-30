@@ -1,9 +1,3 @@
-//
-// Stencil
-// Copyright © 2022 Stencil
-// MIT Licence
-//
-
 class BlockContext {
   class var contextKey: String { "block_context" }
 
@@ -62,7 +56,7 @@ class ExtendsNode: NodeType {
     }
 
     let parsedNodes = try parser.parse()
-    guard (parsedNodes.any { $0 is ExtendsNode }) == nil else {
+    guard (parsedNodes.any { $0 is Self }) == nil else {
       throw TemplateSyntaxError("'extends' cannot appear more than once in the same template")
     }
 

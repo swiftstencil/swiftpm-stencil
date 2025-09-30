@@ -1,9 +1,3 @@
-//
-// Stencil
-// Copyright © 2022 Stencil
-// MIT Licence
-//
-
 import PathKit
 import Spectre
 @testable import Stencil
@@ -140,8 +134,8 @@ final class LexerTests: XCTestCase {
   }
 
   func testPerformance() throws {
-    let path = Path(#file as String) + ".." + "fixtures" + "huge.html"
-    let content: String = try path.read()
+    let path = Path(#file as String)! / ".." / "fixtures" / "huge.html"
+    let content: String = try NSString(contentsOfFile: path.string, encoding: String.Encoding.utf8.rawValue).substring(from: 0) as String
 
     measure {
       let lexer = Lexer(templateString: content)

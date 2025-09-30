@@ -1,10 +1,3 @@
-//
-// Stencil
-// Copyright © 2022 Stencil
-// MIT Licence
-//
-
-import PathKit
 import Spectre
 @testable import Stencil
 import XCTest

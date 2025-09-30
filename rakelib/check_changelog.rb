@@ -42,7 +42,7 @@ def check_changelog
 
     # Now, check that links [#nn](.../nn) have matching numbers in link title & URL
     wrong_links = line.scan(links).reject do |m|
-      slug = m[0] || "stencilproject/#{current_repo}"
+      slug = m[0] || "stencilproject/Stencil"
       (slug == m[2]) && (m[1] == m[4])
     end
     all_warnings.concat Array(wrong_links.map do |m|

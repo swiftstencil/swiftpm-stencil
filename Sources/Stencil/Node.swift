@@ -1,9 +1,3 @@
-//
-// Stencil
-// Copyright © 2022 Stencil
-// MIT Licence
-//
-
 import Foundation
 
 /// Represents a parsed node
@@ -184,6 +178,8 @@ func unwrap(_ array: [Any?]) -> [Any] {
       } else {
         return item
       }
-    } else { return item as Any }
+    } else {
+      return item as Any
+    }
   }
 }

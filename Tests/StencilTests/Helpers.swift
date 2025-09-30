@@ -1,9 +1,3 @@
-//
-// Stencil
-// Copyright © 2022 Stencil
-// MIT Licence
-//
-
 import PathKit
 import Spectre
 @testable import Stencil
@@ -11,7 +5,7 @@ import XCTest
 
 extension Expectation {
   @discardableResult
-  func toThrow<T: Error>() throws -> T {
+  func toThrow<E: Error>() throws -> E {
     var thrownError: Error?
 
     do {
@@ -21,7 +15,7 @@ extension Expectation {
     }
 
     if let thrownError = thrownError {
-      if let thrownError = thrownError as? T {
+      if let thrownError = thrownError as? E {
         return thrownError
       } else {
         throw failure("\(thrownError) is not \(T.self)")

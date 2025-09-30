@@ -1,9 +1,3 @@
-//
-// Stencil
-// Copyright © 2022 Stencil
-// MIT Licence
-//
-
 class FilterNode: NodeType {
   let resolvable: Resolvable
   let nodes: [NodeType]

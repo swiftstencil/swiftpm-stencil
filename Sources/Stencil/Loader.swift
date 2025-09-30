@@ -1,9 +1,3 @@
-//
-// Stencil
-// Copyright © 2022 Stencil
-// MIT Licence
-//
-
 import Foundation
 import PathKit
 
@@ -41,8 +35,8 @@ public class FileSystemLoader: Loader, CustomStringConvertible {
   }
 
   public init(bundle: [Bundle]) {
-    self.paths = bundle.map { bundle in
-      Path(bundle.bundlePath)
+    self.paths = bundle.compactMap { bundle in
+      Path(bundle.path)
     }
   }
 
@@ -52,13 +46,13 @@ public class FileSystemLoader: Loader, CustomStringConvertible {
 
   public func loadTemplate(name: String, environment: Environment) throws -> Template {
     for path in paths {
-      let templatePath = try path.safeJoin(path: Path(name))
+      let templatePath = try path.safeJoin(path: name)
 
       if !templatePath.exists {
         continue
       }
 
-      let content: String = try templatePath.read()
+      let content: String = try String(contentsOf: templatePath)
       return environment.templateClass.init(templateString: content, environment: environment, name: name)
     }
 
@@ -68,10 +62,10 @@ public class FileSystemLoader: Loader, CustomStringConvertible {
   public func loadTemplate(names: [String], environment: Environment) throws -> Template {
     for path in paths {
       for templateName in names {
-        let templatePath = try path.safeJoin(path: Path(templateName))
+        let templatePath = try path.safeJoin(path: templateName)
 
         if templatePath.exists {
-          let content: String = try templatePath.read()
+          let content: String = try String(contentsOf: templatePath)
           return environment.templateClass.init(templateString: content, environment: environment, name: templateName)
         }
       }
@@ -108,10 +102,10 @@ public class DictionaryLoader: Loader {
 }
 
 extension Path {
-  func safeJoin(path: Path) throws -> Path {
-    let newPath = self + path
+  func safeJoin(path: String) throws -> Path {
+    let newPath = self / path
 
-    if !newPath.absolute().description.hasPrefix(absolute().description) {
+    if !newPath.string.hasPrefix(self.string) {
       throw SuspiciousFileOperation(basePath: self, path: newPath)
     }
 

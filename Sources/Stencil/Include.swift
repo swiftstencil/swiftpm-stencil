@@ -1,11 +1,3 @@
-//
-// Stencil
-// Copyright © 2022 Stencil
-// MIT Licence
-//
-
-import PathKit
-
 class IncludeNode: NodeType {
   let templateName: Variable
   let includeContext: String?

@@ -1,9 +1,3 @@
-//
-// Stencil
-// Copyright © 2022 Stencil
-// MIT Licence
-//
-
 import Foundation
 
 extension String {
@@ -83,9 +77,9 @@ public struct SourceMap: Equatable {
     self.location = location
   }
 
-  static let unknown = SourceMap()
+  static let unknown = Self()
 
-  public static func == (lhs: SourceMap, rhs: SourceMap) -> Bool {
+  public static func == (lhs: Self, rhs: Self) -> Bool {
     lhs.filename == rhs.filename && lhs.location == rhs.location
   }
 }
@@ -100,7 +94,7 @@ public struct WhitespaceBehaviour: Equatable {
   let leading: Behaviour
   let trailing: Behaviour
 
-  public static let unspecified = WhitespaceBehaviour(leading: .unspecified, trailing: .unspecified)
+  public static let unspecified = Self(leading: .unspecified, trailing: .unspecified)
 }
 
 public class Token: Equatable {

@@ -1,9 +1,3 @@
-//
-// Stencil
-// Copyright © 2022 Stencil
-// MIT Licence
-//
-
 import Foundation
 
 public struct TrimBehaviour: Equatable {
@@ -30,13 +24,13 @@ public struct TrimBehaviour: Equatable {
   }
 
   /// doesn't touch newlines
-  public static let nothing = TrimBehaviour(leading: .nothing, trailing: .nothing)
+  public static let nothing = Self(leading: .nothing, trailing: .nothing)
 
   /// removes whitespace before a block and whitespace and a single newline after a block
-  public static let smart = TrimBehaviour(leading: .whitespace, trailing: .whitespaceAndOneNewLine)
+  public static let smart = Self(leading: .whitespace, trailing: .whitespaceAndOneNewLine)
 
   /// removes all whitespace and newlines before and after a block
-  public static let all = TrimBehaviour(leading: .whitespaceAndNewLines, trailing: .whitespaceAndNewLines)
+  public static let all = Self(leading: .whitespaceAndNewLines, trailing: .whitespaceAndNewLines)
 
   static func leadingRegex(trim: Trim) -> NSRegularExpression {
     switch trim {
@@ -64,13 +58,18 @@ public struct TrimBehaviour: Equatable {
     }
   }
 
-  // swiftlint:disable force_try
+  // swiftlint:disable:next force_try
   private static let leadingWhitespaceAndNewlines = try! NSRegularExpression(pattern: "^\\s+")
+  // swiftlint:disable:next force_try
   private static let trailingWhitespaceAndNewLines = try! NSRegularExpression(pattern: "\\s+$")
 
+  // swiftlint:disable:next force_try
   private static let leadingWhitespaceAndOneNewLine = try! NSRegularExpression(pattern: "^[ \t]*\n")
+  // swiftlint:disable:next force_try
   private static let trailingWhitespaceAndOneNewLine = try! NSRegularExpression(pattern: "\n[ \t]*$")
 
+  // swiftlint:disable:next force_try
   private static let leadingWhitespace = try! NSRegularExpression(pattern: "^[ \t]*")
+  // swiftlint:disable:next force_try
   private static let trailingWhitespace = try! NSRegularExpression(pattern: "[ \t]*$")
 }

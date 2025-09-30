@@ -1,9 +1,3 @@
-//
-// Stencil
-// Copyright © 2022 Stencil
-// MIT Licence
-//
-
 /// A container for template variables.
 public class Context {
   var dictionaries: [[String: Any?]]
@@ -61,6 +55,7 @@ public class Context {
   /// Pop the last level off of the Context
   ///
   /// - returns: The popped level
+  // swiftlint:disable:next discouraged_optional_collection
   fileprivate func pop() -> [String: Any?]? {
     dictionaries.popLast()
   }
@@ -78,7 +73,7 @@ public class Context {
   }
 
   /// Flatten all levels of context data into 1, merging duplicate variables
-  /// 
+  ///
   /// - returns: All collected variables
   public func flatten() -> [String: Any] {
     var accumulator: [String: Any] = [:]
