@@ -14,6 +14,6 @@ dependencies inside ``Package.swift``.
     let package = Package(
       name: "MyApplication",
       dependencies: [
-        .package(url: "https://github.com/swiftstencil/swiftpm-stencil.git", from: "0.15.1"),
+        .package(url: "https://github.com/swiftstencil/swiftpm-stencil.git", from: "0.15.2"),
       ]
     )

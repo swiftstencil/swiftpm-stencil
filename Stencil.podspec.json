@@ -1,6 +1,6 @@
 {
   "name": "Stencil",
-  "version": "0.15.1",
+  "version": "0.15.2",
   "summary": "Stencil is a simple and powerful template language for Swift.",
   "license": {
     "type": "BSD",
@@ -12,7 +12,7 @@
   "social_media_url": "https://twitter.com/trbernstein",
   "source": {
     "git": "https://github.com/swiftstencil/swiftpm-stencil.git",
-    "tag": "0.15.1"
+    "tag": "0.15.2"
   },
   "source_files": [
     "Sources/Stencil/*.swift"

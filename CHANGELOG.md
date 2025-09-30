@@ -6,6 +6,8 @@
   [##342](https://github.com/stencilproject/Stencil/pull/342)
   [@art-divin](https://github.com/art-divin)
 
+- Allow tokens to be escaped by a backslash, i.e. `\{{ something }}` would render to `{{ something }}`.
+
 ## 0.15.1
 
 ### Bug Fixes
