@@ -20,6 +20,22 @@ final class LexerTests: XCTestCase {
 		try expect(tokens.first) == .comment(value: "Comment", at: makeSourceMap("Comment", for: lexer))
 	}
 
+	func testEscapedVariableToken() throws {
+		let lexer = Lexer(templateString: "\\{{ Variable }}")
+		let tokens = lexer.tokenize()
+
+		try expect(tokens.count) == 1
+		try expect(tokens.first) == .text(value: "{{ Variable }}", at: makeSourceMap("{{ Variable }}", for: lexer))
+	}
+
+	func testEscapedBehaviourToken() throws {
+		let lexer = Lexer(templateString: "\\{% Variable %}")
+		let tokens = lexer.tokenize()
+
+		try expect(tokens.count) == 1
+		try expect(tokens.first) == .text(value: "{% Variable %}", at: makeSourceMap("{% Variable %}", for: lexer))
+	}
+
 	func testVariable() throws {
 		let lexer = Lexer(templateString: "{{ Variable }}")
 		let tokens = lexer.tokenize()

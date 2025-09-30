@@ -15,5 +15,11 @@ final class TemplateTests: XCTestCase {
 			let result = try template.render([ "name": "Kyle" ])
 			try expect(result) == "Hello World"
 		}
+
+		it("can render a template with escaped token") {
+			let template: Template = "Hello \\{{ name }}"
+			let result = try template.render([ "name": "Kyle" ])
+			try expect(result) == "Hello {{ name }}"
+		}
 	}
 }

@@ -62,7 +62,7 @@ struct Lexer {
 	///		- string: The content string of the token
 	///		- range: The range within the template content, used for smart
 	///						 error reporting
-	func createToken(string: String, at range: Range<String.Index>) -> Token {
+	func createToken(string: String, at range: Range<String.Index>, _ isInEscapeMode: Bool = false) -> Token {
 		func strip(length: (Int, Int) = (Self.tagLength, Self.tagLength)) -> String {
 			guard string.count > (length.0 + length.1) else { return "" }
 			let trimmed = String(string.dropFirst(length.0).dropLast(length.1))
@@ -73,7 +73,7 @@ struct Lexer {
 			return trimmed
 		}
 
-		if string.hasPrefix("{{") || string.hasPrefix("{%") || string.hasPrefix("{#") {
+		if !isInEscapeMode && (string.hasPrefix("{{") || string.hasPrefix("{%") || string.hasPrefix("{#")) {
 			let behaviour = string.hasPrefix("{%") ? behaviour(string: string, tagLength: Self.tagLength) : .unspecified
 			let stripLengths = (
 				Self.tagLength + (behaviour.leading != .unspecified ? 1 : 0),
@@ -108,14 +108,14 @@ struct Lexer {
 
 		let scanner = Scanner(templateString)
 		while !scanner.isEmpty {
-			if let (char, text) = scanner.scanForTokenStart(Self.tokenChars) {
+			if let (char, text, isInEscapeMode) = scanner.scanForTokenStart(Self.tokenChars) {
 				if !text.isEmpty {
 					tokens.append(createToken(string: text, at: scanner.range))
 				}
 
 				guard let end = Self.tokenCharMap[char] else { continue }
 				let result = scanner.scanForTokenEnd(end)
-				tokens.append(createToken(string: result, at: scanner.range))
+				tokens.append(createToken(string: result, at: scanner.range, isInEscapeMode))
 			} else {
 				tokens.append(createToken(string: scanner.content, at: scanner.range))
 				scanner.content = ""
@@ -148,6 +148,7 @@ class Scanner {
 	private static let tokenStartDelimiter: Unicode.Scalar = "{"
 	/// And the corresponding end delimiter for a token.
 	private static let tokenEndDelimiter: Unicode.Scalar = "}"
+	private static let tokenDelimiterEscape: Unicode.Scalar = "\\"
 
 	init(_ content: String) {
 		self.originalContent = content
@@ -203,18 +204,25 @@ class Scanner {
 	/// - Parameter tokenChars: List of token start characters to search for.
 	/// - Returns: The found token start character, together with the content
 	///						 before the token, or nil of no token start was found.
-	func scanForTokenStart(_ tokenChars: [Unicode.Scalar]) -> (Unicode.Scalar, String)? {
+	// swiftlint:disable:next large_tuple
+	func scanForTokenStart(_ tokenChars: [Unicode.Scalar]) -> (Unicode.Scalar, String, Bool)? {
 		var foundBrace = false
+		var isInEscapeMode = false
+		var lastChar: Unicode.Scalar = " "
 
 		range = range.upperBound..<range.upperBound
 		for (index, char) in zip(0..., content.unicodeScalars) {
 			if foundBrace && tokenChars.contains(char) {
-				let result = String(content.unicodeScalars.prefix(index - 1))
+				let prefixOffset = isInEscapeMode ? 1 : 0
+				let prefix = String(content.unicodeScalars.prefix(index - 1 - prefixOffset))
 				content = String(content.unicodeScalars.dropFirst(index - 1))
 				range = range.upperBound..<originalContent.unicodeScalars.index(range.upperBound, offsetBy: index - 1)
-				return (char, result)
+
+				return (char, prefix, isInEscapeMode)
 			} else {
 				foundBrace = (char == Self.tokenStartDelimiter)
+				isInEscapeMode = (lastChar == Self.tokenDelimiterEscape)
+				lastChar = char
 			}
 		}
 
