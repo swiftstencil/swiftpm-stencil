@@ -15,8 +15,8 @@
         "repositoryURL": "https://github.com/astzweig/swiftpm-pathkit.git",
         "state": {
           "branch": null,
-          "revision": "5d164c34f35fa7241d77357e965acde80efcb6d9",
-          "version": "1.5.0"
+          "revision": "1280d78aa2c1532800d7e820607f123236dc5f54",
+          "version": "1.5.1"
         }
       }
     ]
